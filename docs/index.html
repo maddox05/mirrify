@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Markdown Viewer</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 2rem auto;
+        line-height: 1.6;
+      }
+      pre {
+        background: #f4f4f4;
+        padding: 1em;
+        overflow-x: auto;
+      }
+      code {
+        background: #eee;
+        padding: 0.2em 0.4em;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="content">Loading...</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+      fetch("/docs/guide.md") // replace with your actual .md file path
+        .then((response) => response.text())
+        .then((markdown) => {
+          const html = marked.parse(markdown);
+          document.getElementById("content").innerHTML = html;
+        })
+        .catch((err) => {
+          document.getElementById("content").textContent =
+            "Failed to load Markdown file.";
+          console.error(err);
+        });
+    </script>
+  </body>
+</html>
