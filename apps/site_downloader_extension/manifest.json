@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Mirrify",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Mirrify downloads **any site** you give it. HTML games, static sites, personal projects — all yours in one click.",
   "permissions": ["storage", "downloads", "webRequest", "sidePanel"],
   "host_permissions": ["<all_urls>"],
