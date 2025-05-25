@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Learn about the 5 common mistakes to avoid when downloading static sites for offline use or archiving, and how tools like Mirrify can help."
+    />
+    <meta
+      name="keywords"
+      content="static site download, website archiving, common website mistakes, offline browsing, HTML download, website preservation, digital archiving"
+    />
+    <title>
+      5 Common Mistakes to Avoid When Downloading Static Sites | Mirrify Blog
+    </title>
+    <style>
+      body {
+        font-family: sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+        color: #333;
+      }
+      .container {
+        width: 80%;
+        margin: auto;
+        overflow: hidden;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      header {
+        background: #333;
+        color: #fff;
+        padding: 1rem 0;
+        text-align: center;
+        border-bottom: #0779e4 3px solid;
+      }
+      header h1 {
+        margin: 0;
+        font-size: 2.5rem;
+      }
+      header p {
+        font-size: 1.1rem;
+      }
+      nav ul {
+        padding: 0;
+        list-style: none;
+        text-align: center;
+        background: #444;
+        margin: 0;
+      }
+      nav ul li {
+        display: inline;
+      }
+      nav ul li a {
+        color: #fff;
+        text-decoration: none;
+        padding: 15px 20px;
+        display: inline-block;
+      }
+      nav ul li a:hover {
+        background: #0779e4;
+      }
+      article h2 {
+        color: #333;
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+      }
+      article h3 {
+        color: #0779e4;
+      }
+      .mistake-summary {
+        background-color: #e7f3fe;
+        border-left: 4px solid #2196f3;
+        padding: 15px;
+        margin-bottom: 20px;
+      }
+      .mistake-summary h3 {
+        margin-top: 0;
+        color: #2196f3;
+      }
+      footer {
+        text-align: center;
+        padding: 20px;
+        background: #333;
+        color: #fff;
+        margin-top: 20px;
+      }
+      .references {
+        margin-top: 30px;
+        padding-top: 15px;
+        border-top: 1px solid #ccc;
+      }
+      .references h3 {
+        color: #333;
+      }
+      .references ul {
+        list-style-type: disc;
+        padding-left: 20px;
+      }
+      .references ul li {
+        margin-bottom: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Mirrify Blog</h1>
+      <p>Your Guide to Effortless Website Archiving</p>
+    </header>
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/docs/">Docs</a></li>
+      </ul>
+    </nav>
+    <div class="container">
+      <article>
+        <h2>5 Common Mistakes to Avoid When Downloading Static Sites</h2>
+        <p><em>Published: May 25, 2025</em></p>
+
+        <p>
+          Downloading static websites, whether for offline browsing, archival
+          purposes, or development, seems straightforward. However, several
+          common pitfalls can lead to incomplete downloads, broken layouts, or
+          unusable archives. Understanding these mistakes can save you time and
+          frustration. This article explores five such common errors and offers
+          insights into how to avoid them, with a brief mention of how tools
+          like Mirrify aim to simplify this process.
+        </p>
+
+        <section class="mistake-summary">
+          <h3>Mistake 1: Ignoring robots.txt or Overloading Servers</h3>
+          <p>
+            Many websites use a <code>robots.txt</code> file to guide web
+            crawlers, specifying which parts of the site should not be accessed.
+            While your intention might be personal archiving, aggressively
+            downloading a site without respecting <code>robots.txt</code> (if
+            applicable to your use case and the tool you use) or making too many
+            rapid requests can overload the server. This can lead to your IP
+            being blocked or, in a worst-case scenario, disrupting the site for
+            other users. Always aim to be a "good netizen."
+          </p>
+          <p>
+            <strong>Solution:</strong> Use downloaders that can be configured to
+            respect <code>robots.txt</code> (many do by default for ethical
+            reasons), and always introduce delays between requests. If a site
+            offers an API or a dedicated download option, prefer that. Tools
+            designed for site mirroring often have settings to control download
+            speed and concurrency.
+          </p>
+        </section>
+
+        <section class="mistake-summary">
+          <h3>
+            Mistake 2: Mishandling Dynamic Content and JavaScript-Generated HTML
+          </h3>
+          <p>
+            Modern websites heavily rely on JavaScript to load content
+            dynamically. A simple HTML downloader might only grab the initial
+            HTML scaffold, missing content that's loaded or rendered by
+            client-side scripts. This results in an incomplete or non-functional
+            offline copy.
+          </p>
+          <p>
+            <strong>Solution:</strong> Ensure your chosen tool can execute
+            JavaScript or is specifically designed for "scraping" dynamic sites.
+            This often involves using a headless browser engine (like Puppeteer
+            or Selenium) under the hood. Some dedicated site downloaders are
+            better equipped to handle JavaScript-heavy sites than generic
+            command-line tools like <code>wget</code> or <code>curl</code> used
+            naively.
+          </p>
+        </section>
+
+        <section class="mistake-summary">
+          <h3>Mistake 3: Incorrectly Managing Asset Paths (CSS, JS, Images)</h3>
+          <p>
+            A frequent issue is that downloaded sites have broken styling,
+            missing images, or non-functional scripts because the paths to these
+            assets are incorrect in the local copy. Websites often use absolute
+            paths (e.g., <code>/css/style.css</code>) or domain-relative paths
+            that don't translate well when the site is viewed locally from a
+            different directory structure (e.g.,
+            <code>file:///C:/Users/YourName/Downloads/MySite/index.html</code>).
+          </p>
+          <p>
+            <strong>Solution:</strong> Good site downloaders automatically
+            rewrite these paths to be relative to the downloaded files, ensuring
+            everything links correctly. Understanding the difference between
+            absolute and relative paths is crucial. For instance, an absolute
+            path like <code><img src="/images/logo.png" /></code> assumes the
+            image is at the root of the web server. When offline, this path is
+            meaningless unless the downloaded site structure perfectly mimics
+            the server's root. Relative paths (e.g.,
+            <code><img src="images/logo.png" /></code> or
+            <code><img src="../images/logo.png" /></code>) are generally more
+            robust for offline viewing as they are resolved based on the current
+            file's location.
+          </p>
+        </section>
+
+        <section class="mistake-summary">
+          <h3>
+            Mistake 4: Not Accounting for Character Encoding and Special
+            Characters
+          </h3>
+          <p>
+            Web pages can use various character encodings (UTF-8, ISO-8859-1,
+            etc.). If the downloader doesn't handle these correctly, or if the
+            <code>&lt;meta charset&gt;</code> tag is missing or misinterpreted,
+            text can appear garbled. Similarly, file names with special
+            characters or very long paths can cause issues on certain operating
+            systems if not properly sanitized during the download process.
+          </p>
+          <p>
+            <strong>Solution:</strong> Ensure your tool correctly interprets and
+            preserves character encoding. Modern tools usually default to UTF-8,
+            which is widely compatible. For file names, good downloaders will
+            sanitize them to be OS-friendly, replacing or encoding problematic
+            characters and truncating overly long names while trying to maintain
+            link integrity.
+          </p>
+        </section>
+
+        <section class="mistake-summary">
+          <h3>Mistake 5: Incomplete Downloads or Missing Pages</h3>
+          <p>
+            Sometimes, downloads are simply incomplete. This could be due to
+            network interruptions, server-side limitations (like download caps
+            or timeouts), or the downloader not being configured to crawl deep
+            enough or follow all necessary link types (e.g., links embedded in
+            CSS or JavaScript).
+          </p>
+          <p>
+            <strong>Solution:</strong> Use a downloader that has robust error
+            handling and resume capabilities. Configure the crawl depth
+            appropriately for the site's structure. Check logs for any errors or
+            missed resources. For very large or complex sites, it might be
+            necessary to download in stages or use more specialized archival
+            tools. Some tools also allow specifying URL patterns to include or
+            exclude, helping to focus the download on relevant content only.
+          </p>
+        </section>
+
+        <h3>How Tools Like Mirrify Can Help</h3>
+        <p>
+          While the above points highlight common challenges, dedicated tools
+          like Mirrify are designed to address many of these issues. Mirrify
+          aims to provide a user-friendly experience for creating complete,
+          browseable offline copies of static and JavaScript-heavy websites. It
+          focuses on:
+        </p>
+        <ul>
+          <li>
+            <strong>Faithful Archiving:</strong> Capturing not just HTML, but
+            also CSS, JavaScript, images, and other assets.
+          </li>
+          <li>
+            <strong>Path Rewriting:</strong> Automatically adjusting links and
+            asset paths to ensure the downloaded site works correctly offline.
+          </li>
+          <li>
+            <strong>Handling Dynamic Content:</strong> Employing techniques to
+            capture content generated by JavaScript.
+          </li>
+          <li>
+            <strong>User Control:</strong> Offering options to manage download
+            behavior, though aiming for smart defaults.
+          </li>
+        </ul>
+        <p>
+          The goal of such tools is to abstract away the complexities, allowing
+          users to archive websites without needing to become experts in web
+          protocols or command-line utilities. While no tool is perfect for
+          every scenario, using a purpose-built solution can significantly
+          reduce the chances of falling into these common traps.
+        </p>
+
+        <p>
+          By being aware of these potential pitfalls and choosing the right
+          tools, you can ensure your website downloads are complete, functional,
+          and truly useful for your intended purpose.
+        </p>
+
+        <section class="references">
+          <h3>References & Further Reading</h3>
+          <ul>
+            <li>
+              W3C. (n.d.). <em>Relative URLs</em>. Retrieved from
+              <a
+                href="https://www.w3.org/TR/WD-html40-970917/htmlweb.html#h-5.1.2"
+                target="_blank"
+                >https://www.w3.org/TR/WD-html40-970917/htmlweb.html#h-5.1.2</a
+              >
+            </li>
+            <li>
+              Google Search Central. (n.d.). <em>Robots.txt Specifications</em>.
+              Retrieved from
+              <a
+                href="https://developers.google.com/search/docs/advanced/robots/robots_txt"
+                target="_blank"
+                >https://developers.google.com/search/docs/advanced/robots/robots_txt</a
+              >
+            </li>
+            <li>
+              MDN Web Docs. (n.d.). <em>Character encodings</em>. Retrieved from
+              <a
+                href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta/charset"
+                target="_blank"
+                >https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta/charset</a
+              >
+            </li>
+            <li>
+              Conductor. (n.d.).
+              <em>Absolute vs Relative URLs: when to use which for SEO?</em>
+              Retrieved from
+              <a
+                href="https://www.conductor.com/academy/urls/faq/absolute-vs-relative/"
+                target="_blank"
+                >https://www.conductor.com/academy/urls/faq/absolute-vs-relative/</a
+              >
+            </li>
+          </ul>
+        </section>
+      </article>
+    </div>
+
+    <footer>
+      <p>&copy; 2025 Mirrify. All rights reserved.</p>
+    </footer>
+  </body>
+</html>
