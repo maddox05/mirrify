@@ -9,9 +9,10 @@ Mirrify is a powerful tool designed to download a complete website's request tre
 Mirrify works by:
 
 1. Opening a browser session
-2. Recording all requests made by the browser
-3. Saving these files in an organized structure
-4. Enabling you to recreate or analyze the site offline
+2. Opening the network panel & disabling caching
+3. Recording all requests made by the browser
+4. Saving these files in an organized structure
+5. Enabling you to recreate or analyze the site offline
 
 ## How Files Are Stored
 
@@ -27,14 +28,14 @@ Mirrify organizes downloaded files into two main categories:
 
 - **What they are**: Resources loaded from external domains (CDNs, third-party services, etc.)
 - **Example**: Loading `https://cdn.example.com/script.js` while on `maddox.page`
-- **Where they're stored**: In `output/https/` with subdirectories matching the original path structure
+- **Where they're stored**: In `https/...` with subdirectories matching the original path structure
 
 ## Using Mirrify Step-by-Step
 
-1. **Launch Mirrify** on the target website
+1. **Launch Mirrify** open the target website, click download, then refresh the page.
 2. **Browse the site** - click through pages, interact with elements
    - Mirrify captures all requests in the background
-3. **Download completes** when you've finished browsing or the site is fully traversed
+3. **Download completes** when you've finished browsing or the site is fully traversed. Click Stop Download.
 
 ## Creating Local Copies of Websites
 
@@ -44,9 +45,8 @@ Mirrify organizes downloaded files into two main categories:
 
 ### For Complex Sites (With Non-Relative Links)
 
-1.  **Use the "Download Non-Relative Links Option"** when running Mirrify
-2.  **Identify external resource files** in your `output/https/` directory
-3.  **Modify path references** in your HTML/JS files:
+1.  **Identify external resource files** in your `https/` directory
+2.  **Modify path references** in your HTML/JS files:
 
     **Example workflow:**
 

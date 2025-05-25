@@ -171,7 +171,7 @@ function startDownload(url, tabId) {
   jszip = new JSZip();
   activeTabId = tabId; // Store the tab ID
 
-  console.log("Initialized new download session");
+  console.log("Initialized new download session, baseUrl:", baseUrl);
 
   // Update the download state in storage
   chrome.storage.local.set({
@@ -180,7 +180,7 @@ function startDownload(url, tabId) {
   });
 
   // Notify side panel that download started
-  chrome.runtime.sendMessage({ type: "downloadStarted" });
+  chrome.runtime.sendMessage({ type: "downloadStarted", baseUrl: baseUrl });
 
   // Add webRequest listener to capture resources - use onCompleted for successful requests
   // With activeTab permission, Chrome scopes this automatically to the active tab

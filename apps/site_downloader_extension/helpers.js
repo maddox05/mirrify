@@ -10,7 +10,7 @@ function findActualBaseUrl(url) {
   } else if (url.includes(".html")) {
     const urlArr = url.split("/");
     urlArr.pop(); // will also pop ?
-    return urlArr.join("/");
+    return urlArr.join("/") + "/";
   } else if (url.includes("?")) {
     return findActualBaseUrl(url.split("?")[0]); //filename.split("?")[0] index.htnl ? x=y z=b messing up base folder
     // and its recursive because after removing ? it could still be a index.html file
@@ -58,7 +58,7 @@ function createDirectoryAlias(dirName) {
  * @returns {string} - The processed path with aliases
  */
 function handleLongPath(path) {
-  const MAX_PATH_LENGTH = 256;
+  const MAX_PATH_LENGTH = 15;
   if (path.length <= MAX_PATH_LENGTH) {
     return path;
   }

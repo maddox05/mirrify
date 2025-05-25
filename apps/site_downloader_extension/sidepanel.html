@@ -30,6 +30,18 @@
         margin-bottom: 1rem;
         display: inline-block;
       }
+      .base-url {
+        font-size: 0.875rem;
+        color: #666;
+        background-color: #eee;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        margin-bottom: 1rem;
+        word-break: break-all;
+        text-align: center;
+        width: 100%;
+        box-sizing: border-box;
+      }
       button {
         background-color: white;
         color: black;
@@ -102,11 +114,42 @@
       .pending-item {
         color: #666;
       }
+      .help-link {
+        margin-top: 1.5rem;
+        text-align: center;
+        font-size: 0.875rem;
+      }
+      .help-link a {
+        color: #171717;
+        text-decoration: none;
+        border-bottom: 2px solid black;
+        padding-bottom: 2px;
+        transition: all 150ms;
+      }
+      .help-link a:hover {
+        color: #666;
+        border-bottom-color: #666;
+      }
+      .tips-area {
+        margin-top: 1.5rem;
+        padding: 1rem;
+        background-color: #e0e0e0; /* Slightly different background */
+        border: 2px solid #ccc;
+        border-radius: 0.75rem;
+        font-size: 0.875rem;
+        color: #333;
+        text-align: center;
+        min-height: 40px; /* Ensure space for text */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
     </style>
   </head>
   <body>
     <div class="container">
       <h2>Mirrify</h2>
+      <div class="base-url" id="baseUrl">Click Start Download to begin</div>
       <button id="startDownload">Start Download</button>
       <button id="stopDownload" disabled>Stop & Save ZIP</button>
       <div class="status" id="statusText">Ready to download</div>
@@ -116,7 +159,12 @@
       </div>
       <div class="file-list" id="fileList"></div>
       <div class="pending-list" id="pendingList"></div>
+      <div class="help-link">
+        <a href="https://mirrify.io/docs" target="_blank">How to Use Mirrify</a>
+      </div>
+      <div class="tips-area" id="tipsArea">Loading tips...</div>
     </div>
     <script src="sidepanel.js"></script>
+    <script src="tips.js"></script>
   </body>
 </html>

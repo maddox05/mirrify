@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const fileList = document.getElementById("fileList");
   const pendingList = document.getElementById("pendingList");
   const pendingCounter = document.getElementById("pendingCounter");
+  const baseUrlElement = document.getElementById("baseUrl");
 
   let downloadActive = false;
   let fileCount = 0;
@@ -77,10 +78,16 @@ document.addEventListener("DOMContentLoaded", function () {
       pendingCount = 0;
       fileCounter.textContent = "Files Downloaded: 0";
       pendingCounter.textContent = "Files Pending: 0";
+      if (baseUrlElement) {
+        baseUrlElement.textContent = message.baseUrl || "No URL selected";
+      }
       console.log("Cleared file lists");
     } else if (message.type === "downloadStopped") {
       console.log("Download session stopped");
       downloadActive = false;
+      if (baseUrlElement) {
+        baseUrlElement.textContent = "Click Start Download to begin";
+      }
       updateUI();
     }
   });
@@ -99,15 +106,6 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
       console.log("Current tab URL:", currentTab.url, "Tab ID:", currentTab.id);
-
-      // Check if URL starts with https://
-      if (!currentTab.url.startsWith("https://")) {
-        window.alert(
-          "Cannot download - URL doesn't use HTTPS:",
-          currentTab.url
-        );
-        return;
-      }
 
       // Reset counter when starting new download
       fileCount = 0;
@@ -172,5 +170,8 @@ document.addEventListener("DOMContentLoaded", function () {
     statusText.textContent = "Ready to download";
     startButton.disabled = false;
     stopButton.disabled = true;
+    if (baseUrlElement) {
+      baseUrlElement.textContent = "No URL selected";
+    }
   });
 });
