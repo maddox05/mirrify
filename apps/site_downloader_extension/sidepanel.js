@@ -18,6 +18,60 @@ document.addEventListener("DOMContentLoaded", function () {
   let fileCount = 0;
   let pendingCount = 0;
 
+  // Headers functionality
+  const headersToggle = document.getElementById("headersToggle");
+  const headersContent = document.getElementById("headersContent");
+  const headersTextarea = document.getElementById("headersTextarea");
+
+  // Toggle headers section
+  headersToggle.addEventListener("click", function () {
+    const isExpanded = headersContent.classList.contains("show");
+    if (isExpanded) {
+      headersContent.classList.remove("show");
+      headersToggle.classList.remove("expanded");
+    } else {
+      headersContent.classList.add("show");
+      headersToggle.classList.add("expanded");
+    }
+  });
+
+  // Function to parse headers from textarea
+  function parseHeaders() {
+    const headersText = headersTextarea.value.trim();
+    if (!headersText) return {};
+
+    const headers = {};
+    const lines = headersText.split("\n");
+
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (!trimmed) continue;
+
+      const colonIndex = trimmed.indexOf(":");
+      if (colonIndex > 0) {
+        const headerName = trimmed.substring(0, colonIndex).trim();
+        const headerValue = trimmed.substring(colonIndex + 1).trim();
+        if (headerName && headerValue) {
+          headers[headerName] = headerValue;
+        }
+      }
+    }
+
+    return headers;
+  }
+
+  // Load saved headers from storage
+  chrome.storage.local.get(["customHeaders"], function (result) {
+    if (result.customHeaders) {
+      headersTextarea.value = result.customHeaders;
+    }
+  });
+
+  // Save headers when they change
+  headersTextarea.addEventListener("input", function () {
+    chrome.storage.local.set({ customHeaders: headersTextarea.value });
+  });
+
   // // Check if download is already in progress when side panel opens
   // chrome.storage.local.get(["downloadActive", "fileCount"], function (result) {
   //   console.log("Checking initial download state:", result);
@@ -113,11 +167,16 @@ document.addEventListener("DOMContentLoaded", function () {
       fileCounter.textContent = "Files Downloaded: 0";
       console.log("Reset file counter");
 
+      // Parse custom headers
+      const customHeaders = parseHeaders();
+      console.log("Parsed custom headers:", customHeaders);
+
       // Tell background script to start downloading
       chrome.runtime.sendMessage({
         type: "startDownload",
         url: currentTab.url,
         tabId: currentTab.id, // Pass the tab ID to the background script
+        headers: customHeaders, // Pass custom headers
       });
       console.log(
         "Sent start download message to background script with tab ID:",

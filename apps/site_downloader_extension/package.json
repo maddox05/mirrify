@@ -1,0 +1,25 @@
+{
+  "name": "mirrify-extension",
+  "version": "1.0.0",
+  "description": "Site downloader Chrome extension with testing",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "testMatch": [
+      "**/tests/**/*.js",
+      "**/?(*.)+(spec|test).js"
+    ],
+    "collectCoverageFrom": [
+      "helpers.js",
+      "!node_modules/**"
+    ]
+  }
+}

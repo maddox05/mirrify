@@ -1,0 +1,38 @@
+# Test files and directories
+__tests__/
+*.test.js
+*.spec.js
+test-runner.html
+
+# Node.js and npm files
+node_modules/
+package.json
+package-lock.json
+.npmrc
+
+# Build files
+dist/
+build.js
+
+# Development files
+.git/
+.gitignore
+README.md
+.env
+.env.*
+
+# Build and temporary files
+*.log
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Source maps and development files
+*.map
+*.md
+helpers.node.js
+
+# Coverage reports
+coverage/
+.nyc_output/ 

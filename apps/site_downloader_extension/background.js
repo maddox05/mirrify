@@ -10,6 +10,7 @@ let pendingUrls = new Set(); // Track URLs that are being downloaded
 let baseUrl = "";
 let jszip = null;
 let activeTabId = null; // Track the active tab ID
+let customHeaders = {}; // Store custom headers for fetch requests
 
 console.log("Background script initialized");
 
@@ -84,8 +85,18 @@ async function handleRequest(details) {
   hitUrls.add(details.url);
 
   try {
-    // Fetch the resource
-    const response = await fetch(details.url);
+    // Fetch the resource with custom headers
+    const fetchOptions = {
+      method: "GET",
+      headers: { ...customHeaders },
+    };
+
+    console.log("Fetching with options:", {
+      url: details.url,
+      options: fetchOptions,
+    });
+
+    const response = await fetch(details.url, fetchOptions);
     console.log("Fetch response:", {
       url: details.url,
       status: response.status,
@@ -156,8 +167,15 @@ function updatePendingCount() {
 }
 
 // Start downloading process
-function startDownload(url, tabId) {
-  console.log("Starting download for URL:", url, "Tab ID:", tabId);
+function startDownload(url, tabId, headers = {}) {
+  console.log(
+    "Starting download for URL:",
+    url,
+    "Tab ID:",
+    tabId,
+    "Headers:",
+    headers
+  );
 
   if (isDownloading) {
     console.log("Download already in progress, ignoring start request");
@@ -170,8 +188,14 @@ function startDownload(url, tabId) {
   baseUrl = findActualBaseUrl(url);
   jszip = new JSZip();
   activeTabId = tabId; // Store the tab ID
+  customHeaders = headers; // Store custom headers
 
-  console.log("Initialized new download session, baseUrl:", baseUrl);
+  console.log(
+    "Initialized new download session, baseUrl:",
+    baseUrl,
+    "customHeaders:",
+    customHeaders
+  );
 
   // Update the download state in storage
   chrome.storage.local.set({
@@ -207,6 +231,9 @@ async function stopDownload() {
 
   // Reset the active tab ID
   activeTabId = null;
+
+  // Reset custom headers
+  customHeaders = {};
 
   // Update storage
   chrome.storage.local.set({
@@ -293,7 +320,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   console.log("Received message:", message);
 
   if (message.type === "startDownload") {
-    startDownload(message.url, message.tabId);
+    startDownload(message.url, message.tabId, message.headers);
   } else if (message.type === "stopDownload") {
     stopDownload();
   }

@@ -1,1 +1,5 @@
 make sure https://maddox.page gets changed to https://maddox.page/
+
+setting refferer based on index file correctly
+
+not saving index files of some sites

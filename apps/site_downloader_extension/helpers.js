@@ -27,11 +27,19 @@ function findActualBaseUrl(url) {
  * @returns {string}
  */
 function normalizeUrl(baseUrl, url) {
+  url = fixUrlThatShouldBeIndex(url);
   if (url.includes(baseUrl)) {
     return url.split(baseUrl)[1] ? url.split(baseUrl)[1] : "index.html"; // if we are on x/ then we must be currently on a index.html file
   } else {
     return url;
   }
+}
+
+function fixUrlThatShouldBeIndex(url) {
+  if (url.endsWith("/")) {
+    return url + "index.html";
+  }
+  return url;
 }
 
 // Map to store directory aliases
@@ -109,3 +117,22 @@ function sanitizeFilename(filename) {
 function splitAndReturnFirst(haystack, needle) {
   return haystack.split(needle)[0];
 }
+
+// // Export functions for Node.js
+// module.exports = {
+//   findActualBaseUrl,
+//   normalizeUrl,
+//   createDirectoryAlias,
+//   handleLongPath,
+//   sanitizeFilename,
+//   splitAndReturnFirst,
+//   directoryAliases,
+//   // Export mutable references for testing
+//   getAliasCounter: () => aliasCounter,
+//   resetAliasCounter: () => {
+//     aliasCounter = 0;
+//   },
+//   clearDirectoryAliases: () => {
+//     directoryAliases.clear();
+//   },
+// };
