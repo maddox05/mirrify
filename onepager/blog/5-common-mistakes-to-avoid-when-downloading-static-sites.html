@@ -149,6 +149,46 @@
             tools like Mirrify aim to simplify this process.
           </p>
 
+          <h2>Watch: Website Archiving Tutorial</h2>
+          <p>
+            Before diving into the common mistakes, let's watch a practical
+            tutorial on how to properly archive websites using command-line
+            tools like wget:
+          </p>
+
+          <div class="mb-8">
+            <div
+              style="
+                position: relative;
+                padding-bottom: 56.25%;
+                height: 0;
+                overflow: hidden;
+              "
+            >
+              <iframe
+                style="
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                "
+                src="https://www.youtube.com/embed/GWlcpRMWM2E"
+                title="How to Download a Website with httrack"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              >
+              </iframe>
+            </div>
+            <p class="text-sm text-neutral-600 mt-2">
+              <em
+                >Tutorial: How to create an offline copy of a website using
+                httrack</em
+              >
+            </p>
+          </div>
+
           <section class="mistake-summary">
             <h3>Mistake 1: Ignoring robots.txt or Overloading Servers</h3>
             <p>
@@ -270,6 +310,378 @@
             </p>
           </section>
 
+          <h2>Popular Tools for Website Archiving</h2>
+          <p>
+            Understanding the available tools can help you choose the right
+            approach for your specific needs. Each tool has its strengths and is
+            suited for different scenarios:
+          </p>
+
+          <h3>Command-Line Tools</h3>
+          <ul>
+            <li>
+              <strong>wget:</strong> The classic Unix tool, excellent for
+              recursive downloads and has extensive options for customization.
+              Great for technical users who want fine control over the download
+              process.
+            </li>
+            <li>
+              <strong>curl:</strong> More focused on single requests but very
+              powerful for API interactions and custom header manipulation.
+            </li>
+            <li>
+              <strong>HTTrack:</strong> Cross-platform website copier with both
+              GUI and command-line interfaces. Known for good handling of
+              complex site structures.
+            </li>
+          </ul>
+
+          <h3>Browser-Based Solutions</h3>
+          <ul>
+            <li>
+              <strong>Browser Extensions:</strong> Tools like "Save Page WE" or
+              "SingleFile" can capture complete pages including rendered
+              JavaScript content.
+            </li>
+            <li>
+              <strong>Print to PDF:</strong> While limited, this can be useful
+              for preserving the visual layout of important pages.
+            </li>
+            <li>
+              <strong>Browser Developer Tools:</strong> Can be used to save
+              resources manually, though this approach doesn't scale well.
+            </li>
+          </ul>
+
+          <h3>Specialized Archiving Tools</h3>
+          <ul>
+            <li>
+              <strong>Archive-It:</strong> Professional web archiving service
+              used by libraries and institutions.
+            </li>
+            <li>
+              <strong>Heritrix:</strong> Open-source web crawler developed by
+              the Internet Archive, designed for large-scale archiving.
+            </li>
+            <li>
+              <strong>Webrecorder:</strong> User-friendly tool for creating
+              high-fidelity web archives, especially good for interactive
+              content.
+            </li>
+          </ul>
+
+          <h2>Best Practices for Ethical Website Archiving</h2>
+          <p>
+            When downloading websites, it's crucial to follow ethical guidelines
+            that respect both the website owners and other users. Here are key
+            principles to follow:
+          </p>
+
+          <h3>Respect Server Resources</h3>
+          <ul>
+            <li>
+              <strong>Implement delays:</strong> Always add delays between
+              requests (typically 1-10 seconds) to avoid overwhelming the
+              server.
+            </li>
+            <li>
+              <strong>Limit concurrent connections:</strong> Use only one or two
+              simultaneous connections to avoid appearing like a DDoS attack.
+            </li>
+            <li>
+              <strong>Choose appropriate times:</strong> Avoid downloading
+              during peak hours when the server is likely to be busiest.
+            </li>
+            <li>
+              <strong>Monitor impact:</strong> If a site becomes slow or
+              unresponsive, pause your download and try again later.
+            </li>
+          </ul>
+
+          <h3>Follow Website Policies</h3>
+          <ul>
+            <li>
+              <strong>Check robots.txt:</strong> Always review the robots.txt
+              file to understand the site's crawling preferences.
+            </li>
+            <li>
+              <strong>Read Terms of Service:</strong> Some sites explicitly
+              prohibit bulk downloading or archiving.
+            </li>
+            <li>
+              <strong>Respect copyright:</strong> Only archive content for
+              personal use, research, or preservation purposes.
+            </li>
+            <li>
+              <strong>Contact site owners:</strong> For large sites or
+              commercial purposes, consider reaching out to get permission.
+            </li>
+          </ul>
+
+          <h3>Technical Considerations</h3>
+          <ul>
+            <li>
+              <strong>Use appropriate user agents:</strong> Identify your tool
+              and include contact information in case of issues.
+            </li>
+            <li>
+              <strong>Handle errors gracefully:</strong> Implement retry logic
+              with exponential backoff for failed requests.
+            </li>
+            <li>
+              <strong>Preserve metadata:</strong> Save creation dates, last
+              modified times, and other important metadata.
+            </li>
+            <li>
+              <strong>Document your process:</strong> Keep records of what was
+              archived, when, and with what settings.
+            </li>
+          </ul>
+
+          <h2>Advanced Archiving Techniques</h2>
+          <p>
+            For complex websites or specialized needs, advanced techniques can
+            help create more complete and useful archives:
+          </p>
+
+          <h3>Handling Dynamic Content</h3>
+          <p>
+            Modern websites often rely heavily on JavaScript to load content
+            dynamically. Traditional tools like wget only capture the initial
+            HTML response, missing content that loads after the page renders.
+          </p>
+          <ul>
+            <li>
+              <strong>Headless browsers:</strong> Tools like Puppeteer or
+              Selenium can execute JavaScript and capture the fully rendered
+              page.
+            </li>
+            <li>
+              <strong>Wait strategies:</strong> Implement delays or wait for
+              specific elements to load before capturing content.
+            </li>
+            <li>
+              <strong>User interaction simulation:</strong> Some content only
+              loads after user actions like clicking or scrolling.
+            </li>
+            <li>
+              <strong>API archiving:</strong> For content-heavy sites, consider
+              archiving the underlying APIs that feed the frontend.
+            </li>
+          </ul>
+
+          <h3>Dealing with Authentication</h3>
+          <p>
+            Some content requires login credentials or API keys to access.
+            Here's how to handle authenticated content ethically:
+          </p>
+          <ul>
+            <li>
+              <strong>Session management:</strong> Maintain login sessions
+              throughout the archiving process.
+            </li>
+            <li>
+              <strong>Cookie preservation:</strong> Save and reuse
+              authentication cookies for consistent access.
+            </li>
+            <li>
+              <strong>Rate limiting:</strong> Be extra careful with
+              authenticated requests as they're more easily traced back to you.
+            </li>
+            <li>
+              <strong>Personal content only:</strong> Only archive content you
+              have legitimate access to view.
+            </li>
+          </ul>
+
+          <h3>Optimizing Archive Quality</h3>
+          <ul>
+            <li>
+              <strong>Multiple quality levels:</strong> Archive both
+              high-resolution images and compressed versions for different use
+              cases.
+            </li>
+            <li>
+              <strong>Redundant storage:</strong> Keep multiple copies of
+              important archives in different formats and locations.
+            </li>
+            <li>
+              <strong>Validation scripts:</strong> Create scripts to verify that
+              your archives are complete and functional.
+            </li>
+            <li>
+              <strong>Regular updates:</strong> For ongoing archival projects,
+              implement systems to detect and archive changes.
+            </li>
+          </ul>
+
+          <h2>Common wget Command Examples</h2>
+          <p>
+            Since wget is one of the most popular tools for website archiving,
+            here are some practical command examples for different scenarios:
+          </p>
+
+          <h3>Basic Site Mirror</h3>
+          <pre
+            style="
+              background-color: #f3f4f6;
+              padding: 1rem;
+              border-radius: 0.375rem;
+              overflow-x: auto;
+              font-family: monospace;
+              margin: 1rem 0;
+            "
+          ><code>wget --mirror --page-requisites --html-extension --convert-links --domains example.com --wait=1 https://example.com</code></pre>
+
+          <h3>Polite Archiving with Delays</h3>
+          <pre
+            style="
+              background-color: #f3f4f6;
+              padding: 1rem;
+              border-radius: 0.375rem;
+              overflow-x: auto;
+              font-family: monospace;
+              margin: 1rem 0;
+            "
+          ><code>wget --recursive --level=5 --wait=2 --random-wait --user-agent="Mozilla/5.0 (compatible; Archiver)" --domains example.com https://example.com</code></pre>
+
+          <h3>Creating WARC Files for Professional Archiving</h3>
+          <pre
+            style="
+              background-color: #f3f4f6;
+              padding: 1rem;
+              border-radius: 0.375rem;
+              overflow-x: auto;
+              font-family: monospace;
+              margin: 1rem 0;
+            "
+          ><code>wget --mirror --warc-file=example_archive --warc-cdx --page-requisites --convert-links --domains example.com --wait=3 https://example.com</code></pre>
+
+          <h3>Excluding Unwanted Content</h3>
+          <pre
+            style="
+              background-color: #f3f4f6;
+              padding: 1rem;
+              border-radius: 0.375rem;
+              overflow-x: auto;
+              font-family: monospace;
+              margin: 1rem 0;
+            "
+          ><code>wget --mirror --reject="*.mp4,*.avi,*.mov" --exclude-directories="/admin,/private" --domains example.com https://example.com</code></pre>
+
+          <h2>Troubleshooting Common Archive Issues</h2>
+          <p>
+            Even with the best preparation, you may encounter issues during the
+            archiving process. Here's how to diagnose and fix common problems:
+          </p>
+
+          <h3>Incomplete Downloads</h3>
+          <ul>
+            <li>
+              <strong>Check log files:</strong> Most tools provide detailed logs
+              showing what succeeded and what failed.
+            </li>
+            <li>
+              <strong>Network timeouts:</strong> Increase timeout values for
+              slow connections or large files.
+            </li>
+            <li>
+              <strong>Depth limitations:</strong> Ensure your crawl depth is
+              sufficient to reach all desired content.
+            </li>
+            <li>
+              <strong>Resume capability:</strong> Use tools that can resume
+              interrupted downloads.
+            </li>
+          </ul>
+
+          <h3>Broken Links in Archives</h3>
+          <ul>
+            <li>
+              <strong>Path rewriting issues:</strong> Verify that absolute URLs
+              are correctly converted to relative paths.
+            </li>
+            <li>
+              <strong>Missing assets:</strong> Check that CSS, JavaScript, and
+              image files were successfully downloaded.
+            </li>
+            <li>
+              <strong>External dependencies:</strong> Some sites rely on
+              external resources that may not be archived.
+            </li>
+            <li>
+              <strong>URL encoding problems:</strong> Special characters in URLs
+              may cause issues with some tools.
+            </li>
+          </ul>
+
+          <h3>Performance Issues</h3>
+          <ul>
+            <li>
+              <strong>Memory usage:</strong> Large sites may require tools with
+              better memory management.
+            </li>
+            <li>
+              <strong>Disk space:</strong> Monitor available storage and plan
+              for significantly larger archives than expected.
+            </li>
+            <li>
+              <strong>Bandwidth limitations:</strong> Implement rate limiting to
+              avoid overwhelming your network connection.
+            </li>
+            <li>
+              <strong>Processing time:</strong> Large sites can take days or
+              weeks to archive completely.
+            </li>
+          </ul>
+
+          <h2>Legal and Copyright Considerations</h2>
+          <p>
+            Website archiving intersects with various legal considerations that
+            vary by jurisdiction. While this article cannot provide legal
+            advice, here are important factors to consider:
+          </p>
+
+          <h3>Fair Use and Personal Archives</h3>
+          <ul>
+            <li>
+              <strong>Personal use exemptions:</strong> Many jurisdictions allow
+              personal copying for private use, research, or study.
+            </li>
+            <li>
+              <strong>Educational purposes:</strong> Academic institutions may
+              have broader rights for archival and research purposes.
+            </li>
+            <li>
+              <strong>Transformative use:</strong> Using archived content for
+              analysis, commentary, or research may qualify for fair use
+              protections.
+            </li>
+            <li>
+              <strong>Geographic variations:</strong> Copyright laws vary
+              significantly between countries and regions.
+            </li>
+          </ul>
+
+          <h3>Risk Mitigation Strategies</h3>
+          <ul>
+            <li>
+              <strong>Keep archives private:</strong> Don't share or
+              redistribute archived content without permission.
+            </li>
+            <li>
+              <strong>Document legitimate purposes:</strong> Maintain clear
+              records of why you're archiving specific content.
+            </li>
+            <li>
+              <strong>Respect takedown requests:</strong> If contacted by
+              content owners, respond promptly and appropriately.
+            </li>
+            <li>
+              <strong>Seek permission when possible:</strong> For important or
+              commercial uses, consider requesting explicit permission.
+            </li>
+          </ul>
           <h2>How Tools Like Mirrify Can Help</h2>
           <p>
             While the above points highlight common challenges, dedicated tools
