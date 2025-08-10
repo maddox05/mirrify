@@ -97,6 +97,7 @@ async function handleRequest(details) {
     });
 
     const response = await fetch(details.url, fetchOptions);
+    const contentType = response.headers.get("content-type");
     console.log("Fetch response:", {
       url: details.url,
       status: response.status,
@@ -117,7 +118,7 @@ async function handleRequest(details) {
 
     // Normalize URL to create a path in the ZIP
     const normalizedUrl = normalizeUrl(baseUrl, details.url);
-    const filePath = sanitizeFilename(normalizedUrl);
+    const filePath = sanitizeFilename(normalizedUrl, contentType);
 
     console.log("Adding file to ZIP:", {
       originalUrl: details.url,

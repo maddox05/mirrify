@@ -51,16 +51,18 @@ let aliasCounter = 0;
  * @param {string} dirName - The directory name to create an alias for
  * @returns {string} - The alias for the directory
  */
-function createDirectoryAlias(dirName) {
+function createFileDirectoryAlias(dirName) {
   if (directoryAliases.has(dirName)) {
     return directoryAliases.get(dirName);
   }
+
   const alias = `d${aliasCounter++}`;
   directoryAliases.set(dirName, alias);
   return alias;
 }
 
 /**
+ * This could still result in too long of a path, but it will be a lot shorter than the original path
  * Handles long paths by creating aliases for long directory names
  * @param {string} path - The path to process
  * @returns {string} - The processed path with aliases
@@ -79,7 +81,7 @@ function handleLongPath(path) {
     const part = parts[i];
     if (part.length > 32) {
       // If directory name is too long
-      const alias = createDirectoryAlias(part);
+      const alias = createFileDirectoryAlias(part);
       result.push(alias);
       currentLength += alias.length + 1; // +1 for the slash
     } else {
@@ -91,7 +93,7 @@ function handleLongPath(path) {
   return result.join("/");
 }
 
-function sanitizeFilename(filename) {
+function sanitizeFilename(filename, type) {
   console.log("Sanitizing filename:", filename);
 
   // First decode URI components like %20 (space) and %7C (pipe)
@@ -103,10 +105,25 @@ function sanitizeFilename(filename) {
   );
 
   // Handle long paths
-  const processedPath = handleLongPath(sanitized);
+  let processedPath = handleLongPath(sanitized);
 
-  console.log("Sanitized filename result:", processedPath);
+  processedPath = fixFileEnding(processedPath, type);
+  if (type) console.log("Sanitized filename result:", processedPath);
   return processedPath;
+}
+
+/**
+ * Fix file endings if it doesnt have the correct ending
+ * if the file is a html file and doesnt have a .html ending, add it
+ * @param {*} filename
+ * @param {*} type
+ * @returns
+ */
+export function fixFileEnding(filename, type) {
+  if (type.includes("html") && !filename.endsWith(".html")) {
+    return filename + ".html";
+  }
+  return filename;
 }
 
 /**
