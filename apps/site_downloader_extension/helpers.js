@@ -119,7 +119,7 @@ function sanitizeFilename(filename, type) {
  * @param {*} type
  * @returns
  */
-export function fixFileEnding(filename, type) {
+function fixFileEnding(filename, type) {
   if (type.includes("html") && !filename.endsWith(".html")) {
     return filename + ".html";
   }

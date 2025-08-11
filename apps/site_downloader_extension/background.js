@@ -186,6 +186,7 @@ function startDownload(url, tabId, headers = {}) {
   isDownloading = true;
   downloadedFiles = [];
   hitUrls.clear(); // Clear the set of downloaded URLs
+  pendingUrls.clear(); // Clear the set of pending URLs
   baseUrl = findActualBaseUrl(url);
   jszip = new JSZip();
   activeTabId = tabId; // Store the tab ID
@@ -306,6 +307,12 @@ async function stopDownload() {
       filename: `${domain}.zip`,
       fileCount: downloadedFiles.length,
     });
+
+    // Clean up memory
+    jszip = null;
+    downloadedFiles = [];
+    hitUrls.clear();
+    pendingUrls.clear();
   } catch (error) {
     console.error("Error in ZIP file creation:", error);
     // Notify side panel of error

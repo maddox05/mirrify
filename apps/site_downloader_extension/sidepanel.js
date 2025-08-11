@@ -212,6 +212,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Listen for side panel close
+  console.log(chrome.sidePanel);
   chrome.sidePanel.onClose.addListener(() => {
     console.log("Side panel closed - cleaning up");
     if (downloadActive) {

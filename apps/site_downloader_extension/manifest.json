@@ -3,7 +3,13 @@
   "name": "Mirrify",
   "version": "0.0.3",
   "description": "Mirrify downloads **any site** you give it. HTML games, static sites, personal projects — all yours in one click.",
-  "permissions": ["storage", "downloads", "webRequest", "sidePanel"],
+  "permissions": [
+    "storage",
+    "downloads",
+    "webRequest",
+    "sidePanel",
+    "activeTab"
+  ],
   "host_permissions": ["<all_urls>"],
   "background": {
     "service_worker": "background.js"
