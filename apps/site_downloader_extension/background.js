@@ -5,6 +5,7 @@ importScripts("helpers.js");
 // Global variables
 let isDownloading = false;
 let downloadedFiles = [];
+let failedDownloads = []; // Track failed downloads
 let hitUrls = new Set(); // Track hit URLs to prevent duplicates
 let pendingUrls = new Set(); // Track URLs that are being downloaded
 let baseUrl = "";
@@ -152,9 +153,25 @@ async function handleRequest(details) {
       url: details.url,
       error: error.message,
     });
+
+    // Add to failed downloads list
+    const failedDownload = {
+      url: details.url,
+      error: error.message,
+      timestamp: new Date().toISOString(),
+    };
+    failedDownloads.push(failedDownload);
+
     // Remove from pending URLs on error
     pendingUrls.delete(details.url);
     updatePendingCount();
+
+    // Notify side panel about failed download
+    chrome.runtime.sendMessage({
+      type: "fileFailed",
+      failedDownload: failedDownload,
+      failedCount: failedDownloads.length,
+    });
   }
 }
 
@@ -185,6 +202,7 @@ function startDownload(url, tabId, headers = {}) {
 
   isDownloading = true;
   downloadedFiles = [];
+  failedDownloads = []; // Clear the failed downloads list
   hitUrls.clear(); // Clear the set of downloaded URLs
   pendingUrls.clear(); // Clear the set of pending URLs
   baseUrl = findActualBaseUrl(url);
@@ -229,7 +247,7 @@ async function stopDownload() {
   isDownloading = false;
 
   // Remove listener
-  chrome.webRequest.onCompleted.removeListener(handleRequest);
+  chrome.webRequest.onBeforeRequest.removeListener(handleRequest);
 
   // Reset the active tab ID
   activeTabId = null;
@@ -311,6 +329,7 @@ async function stopDownload() {
     // Clean up memory
     jszip = null;
     downloadedFiles = [];
+    failedDownloads = [];
     hitUrls.clear();
     pendingUrls.clear();
   } catch (error) {

@@ -12,11 +12,14 @@ document.addEventListener("DOMContentLoaded", function () {
   const fileList = document.getElementById("fileList");
   const pendingList = document.getElementById("pendingList");
   const pendingCounter = document.getElementById("pendingCounter");
+  const failedCounter = document.getElementById("failedCounter");
+  const failedList = document.getElementById("failedList");
   const baseUrlElement = document.getElementById("baseUrl");
 
   let downloadActive = false;
   let fileCount = 0;
   let pendingCount = 0;
+  let failedCount = 0;
 
   // Headers functionality
   const headersToggle = document.getElementById("headersToggle");
@@ -111,7 +114,8 @@ document.addEventListener("DOMContentLoaded", function () {
       pendingCounter.textContent = `Files Pending: ${pendingCount}`;
 
       // Update pending list
-      pendingList.innerHTML = "";
+      pendingList.innerHTML =
+        '<div style="font-weight: 600; margin-bottom: 0.5rem; color: #666;">Pending Downloads</div>';
       message.pendingUrls.forEach((url) => {
         const pendingItem = document.createElement("div");
         pendingItem.className = "pending-item";
@@ -126,16 +130,35 @@ document.addEventListener("DOMContentLoaded", function () {
       downloadActive = true;
       updateUI();
       // Clear file list when starting new download
-      fileList.innerHTML = "";
-      pendingList.innerHTML = "";
+      fileList.innerHTML =
+        '<div style="font-weight: 600; margin-bottom: 0.5rem;">Downloaded Files</div>';
+      pendingList.innerHTML =
+        '<div style="font-weight: 600; margin-bottom: 0.5rem; color: #666;">Pending Downloads</div>';
+      failedList.innerHTML =
+        '<div style="font-weight: 600; margin-bottom: 0.5rem; color: #d32f2f;">Failed Downloads</div>';
       fileCount = 0;
       pendingCount = 0;
+      failedCount = 0;
       fileCounter.textContent = "Files Downloaded: 0";
       pendingCounter.textContent = "Files Pending: 0";
+      failedCounter.textContent = "Files Failed: 0";
       if (baseUrlElement) {
         baseUrlElement.textContent = message.baseUrl || "No URL selected";
       }
       console.log("Cleared file lists");
+    } else if (message.type === "fileFailed") {
+      console.log("Processing failed file:", message.failedDownload);
+      failedCount = message.failedCount;
+      failedCounter.textContent = `Files Failed: ${failedCount}`;
+
+      // Add failed download to the list
+      const failedItem = document.createElement("div");
+      failedItem.className = "failed-item";
+      failedItem.textContent = `${message.failedDownload.url} (${message.failedDownload.error})`;
+      failedList.appendChild(failedItem);
+
+      // Scroll to bottom of failed list
+      failedList.scrollTop = failedList.scrollHeight;
     } else if (message.type === "downloadStopped") {
       console.log("Download session stopped");
       downloadActive = false;
@@ -163,8 +186,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Reset counter when starting new download
       fileCount = 0;
+      failedCount = 0;
       chrome.storage.local.set({ fileCount: 0 });
       fileCounter.textContent = "Files Downloaded: 0";
+      failedCounter.textContent = "Files Failed: 0";
       console.log("Reset file counter");
 
       // Parse custom headers
@@ -223,10 +248,16 @@ document.addEventListener("DOMContentLoaded", function () {
     // Reset UI state
     fileCount = 0;
     fileCounter.textContent = "Files Downloaded: 0";
-    fileList.innerHTML = "";
-    pendingList.innerHTML = "";
+    fileList.innerHTML =
+      '<div style="font-weight: 600; margin-bottom: 0.5rem;">Downloaded Files</div>';
+    pendingList.innerHTML =
+      '<div style="font-weight: 600; margin-bottom: 0.5rem; color: #666;">Pending Downloads</div>';
+    failedList.innerHTML =
+      '<div style="font-weight: 600; margin-bottom: 0.5rem; color: #d32f2f;">Failed Downloads</div>';
     pendingCount = 0;
     pendingCounter.textContent = "Files Pending: 0";
+    failedCount = 0;
+    failedCounter.textContent = "Files Failed: 0";
     statusText.textContent = "Ready to download";
     startButton.disabled = false;
     stopButton.disabled = true;

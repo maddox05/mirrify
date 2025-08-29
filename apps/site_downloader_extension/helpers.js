@@ -79,7 +79,7 @@ function handleLongPath(path) {
 
   for (let i = 0; i < parts.length; i++) {
     const part = parts[i];
-    if (part.length > 32) {
+    if (part.length > 256) {
       // If directory name is too long
       const alias = createFileDirectoryAlias(part);
       result.push(alias);

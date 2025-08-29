@@ -150,7 +150,8 @@
         font-size: 1.25rem;
       }
       .file-list,
-      .pending-list {
+      .pending-list,
+      .failed-list {
         margin-top: 1rem;
         width: 100%;
         max-height: 300px;
@@ -162,18 +163,24 @@
         box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
       }
       .file-item,
-      .pending-item {
+      .pending-item,
+      .failed-item {
         font-size: 0.875rem;
         padding: 0.5rem 0;
         border-bottom: 2px solid #eee;
         word-break: break-all;
       }
       .file-item:last-child,
-      .pending-item:last-child {
+      .pending-item:last-child,
+      .failed-item:last-child {
         border-bottom: none;
       }
       .pending-item {
         color: #666;
+      }
+      .failed-item {
+        color: #d32f2f;
+        font-weight: 500;
       }
       .help-link {
         margin-top: 1.5rem;
@@ -234,9 +241,23 @@
       <div class="counters">
         <div id="fileCounter">Files Downloaded: 0</div>
         <div id="pendingCounter">Files Pending: 0</div>
+        <div id="failedCounter">Files Failed: 0</div>
       </div>
-      <div class="file-list" id="fileList"></div>
-      <div class="pending-list" id="pendingList"></div>
+      <div class="file-list" id="fileList">
+        <div style="font-weight: 600; margin-bottom: 0.5rem">
+          Downloaded Files
+        </div>
+      </div>
+      <div class="pending-list" id="pendingList">
+        <div style="font-weight: 600; margin-bottom: 0.5rem; color: #666">
+          Pending Downloads
+        </div>
+      </div>
+      <div class="failed-list" id="failedList">
+        <div style="font-weight: 600; margin-bottom: 0.5rem; color: #d32f2f">
+          Failed Downloads
+        </div>
+      </div>
       <div class="help-link">
         <a href="https://mirrify.io/docs" target="_blank">How to Use Mirrify</a>
       </div>
